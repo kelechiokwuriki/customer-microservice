@@ -10,15 +10,19 @@ exports.placeOrder = async (req, res) => {
         });
     }
 
-    axios.post(`${orderService.url}/order`, req.body).then(response => {
-        console.log('data', response.data);
+    try {
+        const {data} = await axios.post(`${orderService.url}/order`, req.body);
         return res.status(201).send({
             success: true,
-            message: response.data
+            message: data.message,
+            data: data
         }); 
-    }).catch(error => {
-        // save the url and data and run a cron to retry.
+    } catch (e) {
         console.error('error', error);
-    })
+        return res.status(400).send({
+            success: false,
+            message: 'An error occured while placing the order.'
+        });
+    }
 };
 
