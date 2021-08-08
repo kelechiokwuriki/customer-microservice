@@ -1,5 +1,5 @@
 module.exports = {
     orderService: {
-        url: 'http://localhost:4000'
+        url: 'http://order-service:4000'
     }
 }

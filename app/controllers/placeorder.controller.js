@@ -12,7 +12,6 @@ exports.placeOrder = async (req, res) => {
 
     try {
         const {data} = await axios.post(`${orderService.url}/order`, req.body);
-        console.log(data);
         return res.status(201).send({
             success: true,
             message: 'Order placed successfully',

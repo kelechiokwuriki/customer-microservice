@@ -1,12 +1,21 @@
-version: '3.4'
-
+version: '3.7'
 services:
-  ecommercecustomerservice:
-    image: ecommercecustomerservice
+  customer-service:
     build:
-      context: .
-      dockerfile: ./Dockerfile
-    environment:
-      NODE_ENV: production
+      context: ./
+      dockerfile: Dockerfile
     ports:
-      - 3000:3000
+      - "3000:3000"
+    container_name: customer-service
+  customer-service-db:
+    image: mongo
+    ports:
+      - "27016:27017"
+    container_name: customer-service-db
+    volumes:
+      - ./db/:/data/db
+
+networks:
+  default:
+    external: true
+    name: e-commerce-app
