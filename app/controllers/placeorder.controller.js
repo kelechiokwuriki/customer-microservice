@@ -12,13 +12,14 @@ exports.placeOrder = async (req, res) => {
 
     try {
         const {data} = await axios.post(`${orderService.url}/order`, req.body);
+        console.log(data);
         return res.status(201).send({
             success: true,
-            message: data.message,
-            data: data
+            message: 'Order placed successfully',
+            data: data.data
         }); 
     } catch (e) {
-        console.error('error', error);
+        console.error('An error occured while sending order to order service. Error: ', e);
         return res.status(400).send({
             success: false,
             message: 'An error occured while placing the order.'
